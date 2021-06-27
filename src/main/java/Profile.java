@@ -2,12 +2,12 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-
 import javax.security.auth.login.LoginException;
 import java.awt.*;
+import java.net.UnknownHostException;
 
 public class Profile extends ListenerAdapter {
-
+    MongoDB newnew = new MongoDB();
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event)
     {
@@ -19,6 +19,11 @@ public class Profile extends ListenerAdapter {
             /*
             Embedded profile that users can call for other people
              */
+            try {
+                newnew.addToDatabase("crap","crap","crap");
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
             embd.setColor(Color.cyan);
             embd.setTitle(event.getAuthor().getName());
             embd.setThumbnail(event.getAuthor().getAvatarUrl());
@@ -37,6 +42,7 @@ public class Profile extends ListenerAdapter {
             embd.setThumbnail(event.getMessage().getMentionedMembers().get(0).getUser().getAvatarUrl());
 //            System.out.println(event.getMessage().getMentionedMembers().get(0).getUser().getAvatarUrl());
             event.getChannel().sendMessage(embd.build()).queue();
+
         }
 
         }
