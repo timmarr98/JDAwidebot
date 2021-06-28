@@ -35,7 +35,10 @@ public class Profile extends ListenerAdapter {
             }
 
             embd.setColor(Color.cyan);
-            embd.setTitle(event.getAuthor().getName());
+            embd.setTitle(newnew.userInfo(user_id)[0]);
+            embd.setDescription((newnew.userInfo(user_id)[1]));
+            embd.setFooter("InfoBot Message");
+            embd.addField("Age",newnew.userInfo(user_id)[2],true);
             embd.setThumbnail(event.getAuthor().getAvatarUrl());
             event.getChannel().sendMessage(embd.build()).queue();
 
@@ -45,13 +48,19 @@ public class Profile extends ListenerAdapter {
              */
 
         }
+
         if(event.getMessage().getContentRaw().contains("!profile") && event.getMessage().getMentionedMembers().size() ==1)
         {
+            String user_id = event.getMessage().getMentionedMembers().get(0).getId();
+            String [] userinfo = new String[3];
+            userinfo = newnew.userInfo(user_id);
+
             embd.setColor(Color.cyan);
-            embd.setTitle(event.getMessage().getMentionedMembers().get(0).getNickname());
+            embd.setTitle(userinfo[0]);
             embd.setThumbnail(event.getMessage().getMentionedMembers().get(0).getUser().getAvatarUrl());
-            embd.setDescription("Joined on " + event.getMessage().getMentionedMembers().get(0).getTimeJoined());
-//            System.out.println(event.getMessage().getMentionedMembers().get(0).getUser().getAvatarUrl());
+            embd.setDescription(userinfo[1]);
+            embd.setFooter("InfoBot Message");
+            embd.addField("Age",userinfo[2],true);//            System.out.println(event.getMessage().getMentionedMembers().get(0).getUser().getAvatarUrl());
             event.getChannel().sendMessage(embd.build()).queue();
 
 
