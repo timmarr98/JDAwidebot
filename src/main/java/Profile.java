@@ -1,6 +1,9 @@
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -10,6 +13,27 @@ import java.net.UnknownHostException;
 
 public class Profile extends ListenerAdapter {
     MongoDB newnew = new MongoDB();
+    /*
+        Will add every new member of the server to the database with some static fields
+     */
+    @Override
+    public void onGuildMemberJoin(GuildMemberJoinEvent event)
+    {
+        String user_id = event.getMember().getId();
+        Member user = event.getMember();
+        try {
+            newnew.addToDatabase(user_id, user.getEffectiveName(),user.getUser().getDiscriminator(),"null");
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Checks for user messages of '!profile' which returns an embedded
+     * display of the profile being mentioned, or the user's profile.
+     * @param event
+     */
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event)
     {
@@ -53,6 +77,16 @@ public class Profile extends ListenerAdapter {
         {
             String user_id = event.getMessage().getMentionedMembers().get(0).getId();
             String [] userinfo = new String[3];
+
+
+            try {
+                if(newnew.doesExist(user_id) == false )
+                {
+                    newnew.addToDatabase(user_id, "null", "null", "null");
+                }
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
             userinfo = newnew.userInfo(user_id);
 
             embd.setColor(Color.cyan);
@@ -69,10 +103,3 @@ public class Profile extends ListenerAdapter {
         }
 
     }
-//    public static void main(String[] args) {
-//
-//
-//    }
-
-
-
