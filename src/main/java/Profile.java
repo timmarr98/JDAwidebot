@@ -99,7 +99,24 @@ public class Profile extends ListenerAdapter {
 
 
         }
+        if(event.getMessage().getContentRaw().contains("!bio"))
+        {
+            String user_id = event.getAuthor().getId();
+            newnew.bio(user_id, event.getMessage().getContentRaw().substring(4));
+        }
 
+        if(event.getMessage().getContentRaw().contains("!age"))
+        {
+            String user_id = event.getAuthor().getId();
+            newnew.age(user_id, event.getMessage().getContentRaw().substring(4));
+
+        }
+        if(event.getMessage().getContentRaw().contains("!name"))
+        {
+            String user_id = event.getAuthor().getId();
+            newnew.name(user_id, event.getMessage().getContentRaw().substring(5));
+
+        }
         }
 
     }
