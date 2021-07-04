@@ -1,13 +1,9 @@
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import javax.security.auth.login.LoginException;
 import java.awt.*;
 import java.net.UnknownHostException;
 
@@ -102,19 +98,19 @@ public class Profile extends ListenerAdapter {
         if(event.getMessage().getContentRaw().contains("!bio"))
         {
             String user_id = event.getAuthor().getId();
-            newnew.bio(user_id, event.getMessage().getContentRaw().substring(4));
+            newnew.bio(user_id, event.getMessage().getContentRaw().substring(5));
         }
 
         if(event.getMessage().getContentRaw().contains("!age"))
         {
             String user_id = event.getAuthor().getId();
-            newnew.age(user_id, event.getMessage().getContentRaw().substring(4));
+            newnew.age(user_id, event.getMessage().getContentRaw().substring(5));
 
         }
         if(event.getMessage().getContentRaw().contains("!name"))
         {
             String user_id = event.getAuthor().getId();
-            newnew.name(user_id, event.getMessage().getContentRaw().substring(5));
+            newnew.name(user_id, event.getMessage().getContentRaw().substring(6));
 
         }
         }

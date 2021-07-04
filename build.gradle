@@ -6,6 +6,7 @@ group 'com.discordbot'
 version '1.0-SNAPSHOT'
 
 repositories {
+    jcenter()
     mavenCentral()
     maven {
         name 'm2-dv8tion'
@@ -15,11 +16,15 @@ repositories {
 
 dependencies {
     compile 'org.mongodb:mongo-java-driver:2.12.3'
+    compile 'com.jagrosh:jda-utilities:JDA-UTILITIES-VERSION'
+    compile 'net.dv8tion:JDA:JDA-VERSION'
     implementation("net.dv8tion:JDA:4.3.0_277")
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    implementation 'net.dv8tion:JDA:4.3.0_291'
+    implementation 'com.jagrosh:jda-utilities:3.0.5'
 
 }
 

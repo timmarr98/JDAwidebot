@@ -68,6 +68,11 @@ public class MongoDB {
         System.out.println("Transfer Done");
     }
 
+    /**
+     * Allows the user to update their bio in the database
+     * @param userid The Discord's ID for the user
+     * @param userbio The bio input from the user
+     */
     public void bio(String userid, String userbio)
     {
         DBObject query = new BasicDBObject();
@@ -77,6 +82,11 @@ public class MongoDB {
         System.out.println("Database bio updated");
     }
 
+    /**
+     * Allows the user to update their age
+     * @param userid The Discord's ID for the user
+     * @param age The user's age
+     */
     public void age(String userid, String age)
     {
         DBObject query = new BasicDBObject();
