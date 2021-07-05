@@ -29,6 +29,7 @@ public class playHang extends ListenerAdapter {
         this.waiter = waiter;
         game = false;
         i = 0;
+        //hangView is a static HashMap that displays the hangman text
         hangView.put(0, " ------\n" + "|     |\n" + "|\n" + "|\n" + "|\n" + "|\n" + "|\n" + "|\n" + "----------");
         hangView.put(1, " ------\n" + "|     |\n" + "|     0\n" + "|\n" + "|\n" + "|\n" + "|\n" + "|\n" + "----------");
         hangView.put(2, " ------\n" + "|     |\n" + "|     0\n" + "|     +\n" + "|\n" + "|\n" + "|\n" + "|\n" + "----------\n");
@@ -118,7 +119,18 @@ public class playHang extends ListenerAdapter {
         }
         gameOwner = partyLeader;
         charArr = new char[mysteryWord.length()];
-        Arrays.fill(charArr, '-');
+        for(int y=0; y<charArr.length; y++)
+        {
+            if(mysteryWord.charAt(y) != ' ')
+            {
+                charArr[y] = '-';
+            }
+            else
+            {
+                charArr[y] = ' ';
+            }
+        }
+//        Arrays.fill(charArr, '-');
 
     }
 
