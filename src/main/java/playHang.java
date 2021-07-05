@@ -6,7 +6,9 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 
 public class playHang extends ListenerAdapter {
@@ -15,8 +17,11 @@ public class playHang extends ListenerAdapter {
     private int i;
     private boolean game = false;
     private HashMap<Integer, String> hangView = new HashMap<>();
+    private HashSet<Character> wordChars = new HashSet<>();
+    private HashSet<Character> bank = new HashSet<>();
     private String mysteryWord;
     private String gameOwner;
+    private char[] charArr = new char[mysteryWord.length()];
 
 
     public playHang(EventWaiter waiter) {
@@ -40,7 +45,7 @@ public class playHang extends ListenerAdapter {
         if (event.getMessage().getContentRaw().equals("!hangman")) {
             if(game == true)
             {
-                textChannel.sendMessage("There is currently a game in progress hosted by " + gameOwner);
+                textChannel.sendMessage("There is currently a game in progress hosted by " + gameOwner).queue();
             }
             else {
                 TextChannel tc = event.getChannel();
@@ -50,27 +55,61 @@ public class playHang extends ListenerAdapter {
                         waiter.waitForEvent(PrivateMessageReceivedEvent.class, e ->
                         {
                             return e.getAuthor().getId().equals(partyLeader);
-                        }, e -> sender(event, e.getMessage().getContentRaw(), textChannel, partyLeader), 15, TimeUnit.SECONDS, () -> event.getChannel().sendMessage("Took too long").queue()));
+                        }, e -> sender(event, e.getMessage().getContentRaw(), textChannel, e.getAuthor().getName()), 15, TimeUnit.SECONDS, () -> event.getChannel().sendMessage("Took too long").queue()));
             }
             }
+        if(event.getChannel() == textChannel && game == true && !event.getAuthor().isBot()) {
+
+            if (event.getMessage().getContentRaw().equals(mysteryWord)) {
+                textChannel.sendMessage("You've correctly guessed the word " + mysteryWord + "!").queue();
+                reset();
+            }
+            if(event.getMessage().getContentRaw().length() ==1)
+            {
+                char letter = event.getMessage().getContentRaw().charAt(0);
+                if(bank.contains(letter))
+                {
+                    System.out.println(letter);
+                    textChannel.sendMessage("This letter has already been used, check the bank!").queue();
+                    i++;
+                }
+                bank.add(letter);
+                if(wordChars.contains(letter))
+                {
+                    textChannel.sendMessage(hangView.get(i));
+                    textChannel.sendMessage(hangView.get(i) +"\n"+"Letter "+ letter + " is in the word!").queue();
+
+                }
+                if(!wordChars.contains(letter))
+                {
+                    i++;
+                    textChannel.sendMessage("Letter " + letter + " is NOT a valid letter").queue()
+                }
+                if(mysteryWord.equals(new String(charArr)))
+                {
+                    textChannel.sendMessage("The word has been discovered! The word was " + mysteryWord);
+                }
 
 
-//        if(event.getMessage().getContentRaw().equals("e") && game == true && event.getChannel() == textChannel &&  !event.getAuthor().isBot())
-//        {
-//            textChannel.sendMessage("Welcome to Hangman! " + hangView.get(i) ).queue();
-//        }
-        if(event.getMessage().getContentRaw().equals(mysteryWord)&&  !event.getAuthor().isBot())
-        {
-            textChannel.sendMessage("You've correctly guessed the word " + mysteryWord + "!").queue();
-            reset();
+            }
         }
     }
 
     public void sender(GuildMessageReceivedEvent event, String word, TextChannel t,String partyLeader) {
         game = true;
-        t.sendMessage(word).queue();
+
+        t.sendMessage("RECEIVED").queue();
         mysteryWord = word;
+        for (int x=0; x<word.length();x++)
+        {
+            if(!wordChars.contains(mysteryWord.charAt(i)))
+            {
+                wordChars.add(mysteryWord.charAt(i));
+            }
+        }
         gameOwner = partyLeader;
+        Arrays.fill(charArr, '_');
+        System.out.println
 
     }
 

@@ -2,10 +2,10 @@ Profile.java
  Profile
 MongoDB.java
  MongoDB
-Hangman.java
- Hangman
 JsonStorage.java
  JsonStorage
+Hangman.java
+ Hangman
 Main.java
  Main
 playHang.java
