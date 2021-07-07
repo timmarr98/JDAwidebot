@@ -6,7 +6,7 @@ JsonStorage.java
  JsonStorage
 Hangman.java
  Hangman
-Main.java
- Main
 playHang.java
  playHang
+Main.java
+ Main

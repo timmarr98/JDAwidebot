@@ -5,12 +5,17 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * playHang allows users to play the Hangman game. The user has to prompt the bot with
+ * '!hangman' in order to initiate the game.
+ *  STEP 1: !hangman
+ *  STEP 2: Direct Message Infobot with the phrase or word to be guessed
+ *  STEP 3: Users input letters or full phrases that was given by the game owner
+ */
 public class playHang extends ListenerAdapter {
 
     private final EventWaiter waiter;
@@ -38,6 +43,7 @@ public class playHang extends ListenerAdapter {
         hangView.put(5, " ------\n" + "|     |\n" + "|     0\n" + "|   /-+-\n" + "|\n" + "|\n" + "|\n" + "|\n" + "----------");
         hangView.put(6, " ------\n" + "|     |\n" + "|     0\n" + "|   /-+-/\n" + "|\n" + "|\n" + "|\n" + "|\n" + "----------");
         hangView.put(7, " ------\n" + "|     |\n" + "|     0\n" + "|   /-+-/\n" + "|     |\n" + "|\n" + "|\n" + "|\n" + "----------");
+        hangView.put(8, "  ------\n" + "|     |\n" + "|     0\n" + "|   /-+-/\n" + "|     |\n" + "|     |\n" + "|\n" + "|\n" + "----------");
     }
 
     @Override
@@ -74,7 +80,7 @@ public class playHang extends ListenerAdapter {
                 bank.add(letter);
                 if (wordChars.contains(letter)) {
                     textChannel.sendMessage(hangView.get(i));
-                    textChannel.sendMessage(hangView.get(i) + "\n" + "Letter " + letter + " is in the word!\n").queue();
+                    textChannel.sendMessage(hangView.get(i) + "\n" + "Letter " + letter + " is in the word! "+" FAILS: "+ i + "\n").queue();
                     for (int i = 0; i < mysteryWord.length(); i++) {
                         if (mysteryWord.charAt(i) == letter) {
                             charArr[i] = letter;
@@ -84,7 +90,8 @@ public class playHang extends ListenerAdapter {
                 } else if (!wordChars.contains(letter)) {
                     i++;
                     textChannel.sendMessage(hangView.get(i)).queue();
-                    textChannel.sendMessage("Letter " + letter + " is NOT a valid letter").queue();
+                    textChannel.sendMessage("Letter " + letter + " is NOT a valid letter "  + "  FAILS: " + i).queue();
+                    textChannel.sendMessage(String.copyValueOf(charArr)).queue();
                     if (i >= fails) {
                         textChannel.sendMessage("Sorry you have over 8 fails. Type '!hangman' to play again").queue();
                         reset();
@@ -111,6 +118,7 @@ public class playHang extends ListenerAdapter {
         game = true;
 
         t.sendMessage("RECEIVED").queue();
+
         mysteryWord = word;
         for (int x = 0; x < word.length(); x++) {
             if (!wordChars.contains(mysteryWord.charAt(x))) {
@@ -131,7 +139,8 @@ public class playHang extends ListenerAdapter {
             }
         }
 //        Arrays.fill(charArr, '-');
-
+        t.sendMessage(hangView.get(i)).queue();
+        t.sendMessage(String.copyValueOf(charArr) + "  FAILS: " + i).queue();
     }
 
     /**
