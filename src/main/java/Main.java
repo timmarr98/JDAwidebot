@@ -22,13 +22,11 @@ public class Main extends ListenerAdapter {
         {
             System.out.println(e);
         }
-
-
     }
     public  void start()
     {
         try {
-            String token = "  ";
+            String token = "";
             JDABuilder.createDefault(token).enableIntents(GatewayIntent.GUILD_MEMBERS,GatewayIntent.DIRECT_MESSAGES).addEventListeners(waiter, new playHang(waiter),new Main(), new Profile()).build().awaitReady();
         }
         catch(LoginException err)
