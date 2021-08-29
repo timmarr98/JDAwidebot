@@ -4,6 +4,8 @@ Welcome to InfoBot! An all encompasing bot for discord that allows users to pers
 ## How To use 
 InfoBot allows a variety of options for users to use.
 
+<img src = "./Pictures/99972c42d301f4936bed23bad1f88c52.png">
+
 ### Profile
 To see other's profiles, you can "!profile @user".
 
