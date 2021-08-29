@@ -5,6 +5,7 @@ Welcome to InfoBot! An all encompasing bot for discord that allows users to pers
 To see other's profiles, you can "!profile @user".
 
 To see your own profile, you may type "!profile"
+
 <img src = "./Pictures/Profile.png">
 
 
