@@ -4,7 +4,7 @@ Welcome to InfoBot! An all encompasing bot for discord that allows users to pers
 ## How To use 
 InfoBot allows a variety of options for users to use.
 
-<img src = "./Pictures/99972c42d301f4936bed23bad1f88c52.png">
+<img src = "./Pictures/d25795b9caf6ebeb6cfb7fca13dfa56c.png">
 
 ### Profile
 To see other's profiles, you can "!profile @user".
@@ -19,9 +19,6 @@ The game does not allow the game owner to participate in guessing letters/words.
 
 
 
-
-<img src = "./Pictures/d25795b9caf6ebeb6cfb7fca13dfa56c.png">
-
-
+<img src = "./Pictures/99972c42d301f4936bed23bad1f88c52.png">
 
 
